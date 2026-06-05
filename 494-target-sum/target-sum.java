@@ -1,20 +1,34 @@
 class Solution {
+
+    Map<String, Integer> memo = new HashMap<>();
     public int findTargetSumWays(int[] nums, int target) {
-        return solve(nums, target, 0, 0);
+
+        return dfs(nums, 0, 0, target);
+        
     }
 
-    public int solve(int[] nums, int target, int index, int sum){
+    public int dfs(int[] nums, int index, int sum, int target){
         if(index == nums.length){
             if(sum == target){
                 return 1;
             }
-            return 0;
+            else{
+                return 0;
+            }
         }
 
-        int plus = solve(nums, target, index+1, sum+nums[index]);
+        String key = index + "," + sum;
 
-        int minus = solve(nums, target, index+1, sum-nums[index]);
+        if(memo.containsKey(key)){
+            return memo.get(key);
+        }
 
-        return plus+minus;
+        int add = dfs(nums, index+1, sum+nums[index], target);
+        int substract = dfs(nums, index+1, sum-nums[index], target);
+
+        int ways = add+substract;
+
+        memo.put(key, ways);
+        return ways;
     }
 }
