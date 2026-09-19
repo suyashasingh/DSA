@@ -1,42 +1,36 @@
 class Solution {
     public String reverseWords(String s) {
+        //reverse whole string, then reverse each word
 
-        int n = s.length();
+        char words[] = s.toCharArray();
         int idx = 0;
-        char[] arr = s.toCharArray();
+        for (int i = 0; i < words.length; i++) {
 
-        for (int i = 0;i <n; i++){
-            if(arr[i]!=' '){
-                if(idx != 0)arr[idx++] = ' ';
-                while(i<n && arr[i]!=' '){
-                    arr[idx++] = arr[i++];
+            if (words[i] != ' ') {
+                if (idx != 0) words[idx++] = ' ';
+                while (i < words.length && words[i] != ' ') {
+                    words[idx++] = words[i++];
                 }
             }
         }
-
-        //reverse string
-        reverse(arr, 0, idx-1);
-
-        //reverse word
+        reverse(words, 0, idx-1);
 
         int start = 0;
-        for(int end = 0; end<=idx; end++){
-            if(end == idx || arr[end]==' '){
-                reverse(arr, start, end-1);
+        for(int end = 0 ; end <=idx; end++){
+            if(end == idx || words[end] == ' '){
+                reverse(words, start, end-1);
                 start = end+1;
             }
         }
 
-        return new String(arr, 0, idx);
-        
+        return new String(words, 0, idx);
     }
-     //helper function
 
-    public void reverse(char[] arr, int start, int end){
+    public void reverse(char[] ch, int start, int end) {
         while(start<end){
-            char temp = arr[start];
-            arr[start] = arr[end];
-            arr[end] = temp;
+            char temp = ch[start];
+            ch[start] = ch[end];
+            ch[end] = temp;
 
             start++;
             end--;
