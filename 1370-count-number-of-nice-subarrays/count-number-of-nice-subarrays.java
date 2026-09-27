@@ -1,8 +1,6 @@
 class Solution {
     public int numberOfSubarrays(int[] nums, int k) {
-
         return atMost(nums, k) - atMost(nums, k - 1);
-       
     }
 
     public int atMost(int[] nums, int k){
@@ -28,6 +26,5 @@ class Solution {
             count += right-left+1;
         }
         return count;
-        
     }
 }
